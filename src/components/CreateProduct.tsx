@@ -153,9 +153,9 @@ const CreateProduct = () => {
           <AlertDialogFooter>
             <form onSubmit={handleSubmit} className="m-auto">
               <CardHeader>
-                <CardTitle className="text-2xl">Create Book</CardTitle>
+                <CardTitle className="text-2xl">Create product</CardTitle>
                 <CardDescription>
-                  Enter details below to add a new book.
+                  Enter details below to add a new product.
                 </CardDescription>
                 {error && (
                   <CardDescription className={cn("text-red-500")}>
@@ -178,7 +178,7 @@ const CreateProduct = () => {
                       name="title"
                       required
                       value={inpValue.title}
-                      placeholder="Enter book title"
+                      placeholder="Enter product title"
                       onChange={handleInputChange}
                     />
                   </div>
@@ -212,7 +212,7 @@ const CreateProduct = () => {
                   <Textarea
                     id="description"
                     name="description"
-                    placeholder="Enter book description"
+                    placeholder="Enter product description"
                     value={inpValue.description}
                     required
                     className="min-h-[9.5rem]"
@@ -225,7 +225,7 @@ const CreateProduct = () => {
                   {loading ? (
                     <LoaderCircle className="animate-spin" />
                   ) : (
-                    "Create Book"
+                    "Create product"
                   )}
                 </Button>
               </CardFooter>

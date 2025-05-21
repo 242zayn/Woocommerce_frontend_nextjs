@@ -80,7 +80,7 @@ export default function Dashboard({ children }: { children: React.ReactNode }) {
                 Home
               </Link>
               <Link
-                href="/dashboard/book"
+                href="/dashboard/product"
                 onClick={() => setActive(true)}
                 className={`flex items-center gap-3 rounded-lg px-3 py-2 ${
                   !active ? "text-muted-foreground " : "text-primary bg-muted"
