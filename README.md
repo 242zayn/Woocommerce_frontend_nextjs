@@ -48,5 +48,5 @@ This is the **frontend application** for the WooCommerce integration project, bu
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/frontend-woocommerce.git
+git clone https://github.com/242zayn/Woocommerce_frontend_nextjs
 cd frontend-woocommerce
