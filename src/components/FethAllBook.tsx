@@ -1,5 +1,5 @@
 "use client";
-import { GetBookDataType } from "@/types/type";
+import { GetBookDataType, GetProductsTypes } from "@/types/type";
 import axios from "axios";
 import Image from "next/image";
 import React, { SetStateAction, useEffect, useState } from "react";
@@ -8,6 +8,7 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
+  CardContent,
 } from "@/components/ui/card";
 
 import { useRouter } from "next/navigation";
@@ -22,12 +23,14 @@ const FethAllBook = () => {
     setNewId(_id);
   };
   const router = useRouter();
-  const [datas, setData] = useState<GetBookDataType[]>();
+  const [datas, setData] = useState<GetProductsTypes>();
+
+  console.log(datas);
 
   useEffect(() => {
     // console.log(process.env.BACKEND_URL);
     axios
-      .get("http://localhost:5513/api/books")
+      .get("http://localhost:5513/api/getproducts")
       .then((responce) => setData(responce.data));
   }, []);
 
@@ -36,26 +39,37 @@ const FethAllBook = () => {
     router.push(`/${res}`);
   };
   return (
-    <div className="flex flex-wrap gap-5 justify-center  ">
-      {datas?.map((res) => {
+    <div className="flex flex-wrap gap-5 justify-center ">
+      {datas?.products?.map((data, index) => {
         return (
-          <div key={res._id} className="  items-center">
+          <div key={index} className=" items-center">
             <Card className=" w-[380px] p-4 flex relative  ">
-              <BookMark bookId={res._id} onclick={() => handleBook(res._id)} />
-              <Image
-                src={res.coverImage}
-                alt=""
-                className=" w-[40%] rounded-sm"
-                width={50}
-                height={0}
-              />
+              {data.images?.map((img, id) => {
+                return (
+                  <div key={id}>
+                    <Image
+                      src={img.src}
+                      alt=""
+                      className=" w-full rounded-sm"
+                      width={500}
+                      height={500}
+                    />
+                  </div>
+                );
+              })}
               <div>
                 <CardHeader className="gap-2">
-                  <CardTitle>Create project</CardTitle>
-                  <CardDescription>
-                    Deploy your new project in one-click.
-                  </CardDescription>
-                  <Button onClick={() => ProdDetels(res._id)}>Read More</Button>
+                  <CardTitle>{data.name} </CardTitle>
+                  <CardContent>
+                    <CardDescription>
+                      {data.description.replace(/<[^>]*>/g, "")}
+                    </CardDescription>
+                    <span className=" font-bold text-xl ">
+                      {" "}
+                      ₹ {data.price}{" "}
+                    </span>
+                  </CardContent>
+                  <Button>Read More</Button>
                 </CardHeader>
               </div>
             </Card>

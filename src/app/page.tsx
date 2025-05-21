@@ -17,7 +17,7 @@ export default function Dashboard() {
           <Link href="/" className="flex items-center gap-2 font-semibold">
             <Book className="h-8 w-8" />
             <span className="flex text-2xl font-semibold gap-2">
-              <span>Book</span>
+              <span>WooCommerce</span>
               <span>Store</span>
             </span>
           </Link>

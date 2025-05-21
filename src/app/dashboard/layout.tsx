@@ -60,7 +60,7 @@ export default function Dashboard({ children }: { children: React.ReactNode }) {
               className="flex items-center gap-2 font-semibold"
             >
               <Book className="h-6 w-6" />
-              <span className="">Ebook Store</span>
+              <span className="">WooCommerce Store</span>
             </Link>
             <Button variant="outline" size="icon" className="ml-auto h-8 w-8">
               <Bell className="h-4 w-4" />
@@ -87,7 +87,7 @@ export default function Dashboard({ children }: { children: React.ReactNode }) {
                 }  transition-all hover:text-primary`}
               >
                 <BookAIcon className="h-4 w-4" />
-                Books
+                Products
                 <Badge className="ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full">
                   6
                 </Badge>

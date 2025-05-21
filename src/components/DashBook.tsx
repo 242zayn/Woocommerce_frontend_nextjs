@@ -392,18 +392,18 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import CreateProduct from "./CreateProduct";
 import { useEffect, useState } from "react";
-import { GetBookDataType } from "@/types/type";
+import { GetBookDataType, GetProductsTypes } from "@/types/type";
 import axios from "axios";
 import DelComponent from "./DelComponent";
 import UpdateBook from "./UpdateProduct";
 import Link from "next/link";
 
 export default function DashBook() {
-  const [data, setData] = useState<GetBookDataType[]>();
+  const [data, setData] = useState<GetProductsTypes>();
 
   useEffect(() => {
     axios
-      .get("http://localhost:5513/api/books")
+      .get("http://localhost:5513/api/getproducts")
       .then((responce) => setData(responce.data));
     console.log("after delete");
   }, []);
@@ -483,30 +483,36 @@ export default function DashBook() {
                       </TableRow>
                     </TableHeader>
                     <TableBody>
-                      {data?.map((res) => {
+                      {data?.products?.map((res, index) => {
                         return (
-                          <TableRow key={res._id}>
+                          <TableRow key={index}>
                             <TableCell className="hidden sm:table-cell">
-                              <Image
-                                alt="Product image"
-                                className="aspect-square rounded-md object-cover"
-                                height="64"
-                                src={res.coverImage}
-                                width="64"
-                              />
+                              {res.images?.map((img, index) => {
+                                return (
+                                  <span key={index}>
+                                    <Image
+                                      alt="Product image"
+                                      className="aspect-square rounded-md object-cover"
+                                      height="64"
+                                      src={img.src}
+                                      width="64"
+                                    />
+                                  </span>
+                                );
+                              })}
                             </TableCell>
                             <TableCell className="font-medium">
-                              Laser Lemonade Machine
+                              {res.name}
                             </TableCell>
                             <TableCell>
                               <Badge variant="outline">Draft</Badge>
                             </TableCell>
-                            <TableCell>$499.99</TableCell>
+                            <TableCell> ₹ {res.price}</TableCell>
                             <TableCell className="hidden md:table-cell">
                               25
                             </TableCell>
                             <TableCell className="hidden md:table-cell">
-                              2023-07-12 10:42 AM
+                              {res.date_created.split("T")[0]}
                             </TableCell>
                             <TableCell>
                               <DropdownMenu>
@@ -521,11 +527,9 @@ export default function DashBook() {
                                   </Button>
                                 </DropdownMenuTrigger>
                                 <DropdownMenuContent align="end">
-                                  <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                                  <UpdateBook data={res} />
                                   <DropdownMenuItem asChild>
                                     <div>
-                                      <DelComponent bookId={res._id} />
+                                      <DelComponent bookId={res.id} />
                                     </div>
                                   </DropdownMenuItem>
                                 </DropdownMenuContent>
